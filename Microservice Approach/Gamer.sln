@@ -1,0 +1,89 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{4D064D8E-F31C-46E8-88DB-98D62E166E54}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{8F776C83-6882-4729-912C-66E1CBAC7225}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Components", "Components", "{73AADB4A-C1EA-455B-99A2-F4F083F8B8D7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Accessors", "Accessors", "{C92C6739-E291-4DCD-AA09-0F991479534C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engines", "Engines", "{CD8456D9-6DE0-4A6C-89B9-46796D3BC220}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Managers", "Managers", "{F9137AAA-3896-49E7-83BE-00DFE2A50A04}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4601297C-AC8F-4B6A-892E-129A217AD1FD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Architecture", "Architecture", "{440A5EE7-B88A-47B4-BDB4-952AEA88C101}"
+	ProjectSection(SolutionItems) = preProject
+		GamerDiagram.dgml = GamerDiagram.dgml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{87441106-A04A-4F6C-AC2B-EF56A52732F8}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		GamerDiagram.dgml = GamerDiagram.dgml
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gamer.Client.ConsoleApp", "Gamer.Client.ConsoleApp\Gamer.Client.ConsoleApp.csproj", "{5AF1C693-17AD-4D05-A4C9-BEB17DBAAAFA}"
+EndProject
+Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "Gamer.Architecture.DependencyValidation", "Gamer.Architecture.DependencyValidation\Gamer.Architecture.DependencyValidation.modelproj", "{70ADB42B-0D11-48B3-A669-339DA857E6EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamer.Resource.Data.GamerDB", "..\Gamer.Resource.Data.GamerDB\Gamer.Resource.Data.GamerDB.csproj", "{3D6E0FEE-416F-4968-9AB1-BC7823E35A70}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Single Project", "Single Project", "{AA5EA602-99F8-4B23-9A78-C38DB8D51601}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Multiple Projects", "Multiple Projects", "{43053FDC-A71B-4E82-81E3-EC0543EC387C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Microservice", "Microservice", "{5813AD91-81AA-468E-95FC-37B6C1CF5D62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamer.v1", "..\Single\Gamer.Client.ConsoleApp.v1\Gamer.v1.csproj", "{0784C463-01CE-4033-9674-2D7ACD0F6257}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5AF1C693-17AD-4D05-A4C9-BEB17DBAAAFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AF1C693-17AD-4D05-A4C9-BEB17DBAAAFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AF1C693-17AD-4D05-A4C9-BEB17DBAAAFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AF1C693-17AD-4D05-A4C9-BEB17DBAAAFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70ADB42B-0D11-48B3-A669-339DA857E6EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70ADB42B-0D11-48B3-A669-339DA857E6EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70ADB42B-0D11-48B3-A669-339DA857E6EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70ADB42B-0D11-48B3-A669-339DA857E6EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D6E0FEE-416F-4968-9AB1-BC7823E35A70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D6E0FEE-416F-4968-9AB1-BC7823E35A70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D6E0FEE-416F-4968-9AB1-BC7823E35A70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D6E0FEE-416F-4968-9AB1-BC7823E35A70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0784C463-01CE-4033-9674-2D7ACD0F6257}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0784C463-01CE-4033-9674-2D7ACD0F6257}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0784C463-01CE-4033-9674-2D7ACD0F6257}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0784C463-01CE-4033-9674-2D7ACD0F6257}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4D064D8E-F31C-46E8-88DB-98D62E166E54} = {5813AD91-81AA-468E-95FC-37B6C1CF5D62}
+		{8F776C83-6882-4729-912C-66E1CBAC7225} = {5813AD91-81AA-468E-95FC-37B6C1CF5D62}
+		{73AADB4A-C1EA-455B-99A2-F4F083F8B8D7} = {5813AD91-81AA-468E-95FC-37B6C1CF5D62}
+		{C92C6739-E291-4DCD-AA09-0F991479534C} = {73AADB4A-C1EA-455B-99A2-F4F083F8B8D7}
+		{CD8456D9-6DE0-4A6C-89B9-46796D3BC220} = {73AADB4A-C1EA-455B-99A2-F4F083F8B8D7}
+		{F9137AAA-3896-49E7-83BE-00DFE2A50A04} = {73AADB4A-C1EA-455B-99A2-F4F083F8B8D7}
+		{4601297C-AC8F-4B6A-892E-129A217AD1FD} = {5813AD91-81AA-468E-95FC-37B6C1CF5D62}
+		{5AF1C693-17AD-4D05-A4C9-BEB17DBAAAFA} = {4D064D8E-F31C-46E8-88DB-98D62E166E54}
+		{70ADB42B-0D11-48B3-A669-339DA857E6EE} = {440A5EE7-B88A-47B4-BDB4-952AEA88C101}
+		{3D6E0FEE-416F-4968-9AB1-BC7823E35A70} = {8F776C83-6882-4729-912C-66E1CBAC7225}
+		{0784C463-01CE-4033-9674-2D7ACD0F6257} = {AA5EA602-99F8-4B23-9A78-C38DB8D51601}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {734A69C4-F563-497D-A2EB-9FE36BD371BD}
+	EndGlobalSection
+EndGlobal
