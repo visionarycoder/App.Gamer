@@ -1,13 +1,20 @@
 ﻿using Gamer.Framework;
+using Gamer.Resources.Data.GamerDb;
+
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace Gamer.Components.Accessors.Games
+namespace Gamer.Components.Accessors.Games;
+
+public class GamesAccess : ServiceObject<GamesAccess>, IGamesAccess
 {
-    public class GamesAccess : ServiceObject<GamesAccess>, IGamesAccess
-    {
-	    public GamesAccess(ILogger logger) 
-		    : base(logger)
-	    {
-	    }
-    }
+
+	private readonly GamerContext ctx;
+
+	public GamesAccess(ILogger logger, DbContextOptions<GamerContext> options)
+		: base(logger)
+	{
+		ctx = new GamerContext(options);
+	}
+
 }

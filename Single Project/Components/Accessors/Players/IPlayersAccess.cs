@@ -13,6 +13,6 @@ public interface IPlayersAccess
 public class PlayerFilter
 {
 	public bool FindAll { get; set; }
-	public ICollection<int>? Ids { get; set; } = null;
+	public ICollection<int>? Ids { get; set; } 
 	public int? GameSessionId { get; set; }
 }

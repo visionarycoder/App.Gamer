@@ -1,4 +1,4 @@
-﻿namespace Gamer.Components.Engines.Rules;
+﻿namespace Gamer.Components.Engines.GamePlay;
 
 public interface IGamePlayEngine
 {

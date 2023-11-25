@@ -9,5 +9,7 @@
 		public string Description { get; set; } = string.Empty;
 		public int GameTypeId { get; set; }
 
+		public virtual ICollection<GameSession> GameSessions { get; } = new List<GameSession>();
+
 	}
 

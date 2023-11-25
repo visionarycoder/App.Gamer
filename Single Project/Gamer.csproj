@@ -15,10 +15,9 @@
 
     <ItemGroup>
       <Folder Include="Clients\Content\Models\" />
-      <Folder Include="Components\Accessors\Games\Models\" />
       <Folder Include="Components\Accessors\Players\Models\" />
       <Folder Include="Components\Engines\GamePlay\Models\" />
-      <Folder Include="Components\Engines\Validator\Models\" />
+      <Folder Include="Components\Engines\Validation\Models\" />
       <Folder Include="Components\Managers\Admin\Models\" />
       <Folder Include="Components\Managers\Content\Models\" />
     </ItemGroup>
@@ -33,6 +32,8 @@
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
       <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="8.0.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
