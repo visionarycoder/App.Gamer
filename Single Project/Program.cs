@@ -1,9 +1,7 @@
 ﻿using Gamer.Clients.Content;
-using Gamer.Components.Accessors.Games;
-using Gamer.Components.Accessors.Players;
-using Gamer.Components.Engines.GamePlay;
-using Gamer.Components.Managers.Admin;
-using Gamer.Components.Managers.Content;
+using Gamer.Components.Accessors;
+using Gamer.Components.Engines;
+using Gamer.Components.Managers;
 using Gamer.Resources.Data.GamerDb;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -23,20 +21,22 @@ builder.Logging.AddSimpleConsole(options =>
 		options.TimestampFormat = "hh:mm:ss ";
 	});
 
-builder.Services.AddDbContext<GamerContext>(options =>
-{
-	options.UseSqlite(builder.Configuration.GetConnectionString("Gamer"));
-});
+var options = new DbContextOptionsBuilder<GamerContext>()
+	.UseSqlite(builder.Configuration.GetConnectionString("Gamer"))
+	.Options;
+builder.Services.AddSingleton(options);
 
-builder.Services.AddTransient<IGamesAccess, GamesAccess>();
-builder.Services.AddTransient<IPlayersAccess, PlayersAccess>();
-builder.Services.AddTransient<IGamePlayEngine, GamePlayEngine>();
-builder.Services.AddTransient<IGamePlayRules, GamePlayRules>();
-builder.Services.AddTransient<IValidationEngine, ValidationEngine>();
-builder.Services.AddTransient<IAdminManager, AdminManager>();
-builder.Services.AddTransient<IContentManager, ContentManager>();
-builder.Services.AddTransient<IContentClient, ContentClient>();
+builder.Services.AddDbContext<GamerContext>();
+
+builder.Services.AddTransient<BoardAccess>();
+builder.Services.AddTransient<PlayersAccess>();
+builder.Services.AddTransient<GamePlayEngine>();
+builder.Services.AddTransient<ValidationEngine>();
+builder.Services.AddTransient<AdminManager>();
+builder.Services.AddTransient<ContentManager>();
+builder.Services.AddTransient<ContentClient>();
 
 var host = builder.Build();
+
 await host.RunAsync();
 

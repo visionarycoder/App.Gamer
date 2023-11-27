@@ -2,11 +2,10 @@
 
 public class GamePlayer
 {
-
-	public int Id { get; set; }
+	private static int id;
+	public int Id { get; init; } = id++;
 	public string Name { get; set; } = string.Empty;
-	public int GamePlayerTypeId { get; set; }
-	
+	public string PlayerType { get; set; } = string.Empty;
+	public string Token { get; set; } = string.Empty;
 	public virtual ICollection<GameSession> GameSessions { get; } = new List<GameSession>();
-
 }

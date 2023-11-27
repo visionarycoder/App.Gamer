@@ -1,108 +1,122 @@
-﻿using System.Diagnostics;
-using Gamer.Resources.Data.GamerDb.Models;
+﻿using Gamer.Resources.Data.GamerDb.Models;
+
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+using RulesEngine.Models;
+
+using System.Reflection.Emit;
+using System.Text.Json;
 
 namespace Gamer.Resources.Data.GamerDb;
 
 public class GamerContext : DbContext
 {
 
-	DbSet<GameDefinition> GameDefinitions { get; set; }
-	DbSet<GamePlayer> GamePlayers { get; set; }
-	DbSet<GamePlayerType> GamePlayerTypes { get; set; }
-	DbSet<GameRule> GameRules { get; set; }
-	DbSet<GameSession> GameSessions { get; set; }
-	DbSet<GameSessionPlayer> GameSessionPlayers { get; set; }
-	DbSet<GameType> GameTypes { get; set; }
-	DbSet<GameWorkflow> GameWorkflows { get; set; }
+	private readonly JsonSerializerOptions serializationOptions = new (JsonSerializerDefaults.General);
+	private readonly ValueComparer<Dictionary<string,object>> valueComparer = new (
+		(dictionary, objects) => dictionary!.SequenceEqual(objects!),
+		dictionary => dictionary.Aggregate(0, (i, keyValuePair) => HashCode.Combine(i, keyValuePair.GetHashCode())),
+		dictionary => dictionary);
+
+	public Guid InstanceId { get; }= Guid.NewGuid();
+
+
+	public DbSet<GameDefinition> GameDefinitions { get; set; } = null!;
+	public DbSet<GameCell> GameCells { get; set; } = null!;
+	
+	public DbSet<GamePlayer> GamePlayers { get; set; } = null!;
+	public DbSet<GameSession> GameSessions { get; set; } = null!;
+	
+	public DbSet<Rule> Rules { get; set; } = null!;
+	public DbSet<Workflow> Workflows { get; set; } = null!;
 
 	public GamerContext(DbContextOptions<GamerContext> options)
 		: base(options)
 	{
 
-		Database.EnsureCreated();
-
 	}
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
-
-		Debug.Assert(modelBuilder != null, nameof(modelBuilder) + " != null");
-
+		ArgumentNullException.ThrowIfNull(modelBuilder, nameof(modelBuilder));
 		OnModelCreating(modelBuilder.Entity<GameDefinition>());
+		OnModelCreating(modelBuilder.Entity<GameCell>());
 		OnModelCreating(modelBuilder.Entity<GamePlayer>());
-		OnModelCreating(modelBuilder.Entity<GamePlayerType>());
-		OnModelCreating(modelBuilder.Entity<GameRule>());
 		OnModelCreating(modelBuilder.Entity<GameSession>());
-		OnModelCreating(modelBuilder.Entity<GameSessionPlayer>());
-		OnModelCreating(modelBuilder.Entity<GameType>());
-		OnModelCreating(modelBuilder.Entity<GameWorkflow>());
-
+		OnModelCreating(modelBuilder.Entity<Rule>());
+		OnModelCreating(modelBuilder.Entity<Workflow>());
 		base.OnModelCreating(modelBuilder);
-
 	}
 
 	private void OnModelCreating(EntityTypeBuilder<GameDefinition> entity)
 	{
+		ArgumentNullException.ThrowIfNull(entity, nameof(entity));
 		entity.ToTable(nameof(GameDefinitions));
-		entity.HasIndex(e => e.Id).IsUnique();
 		entity.Property(e => e.Id).ValueGeneratedOnAdd();
-		entity.Property(e => e.Name).IsRequired();
-		entity.Property(e => e.Description).IsRequired();
-		entity.Property(e => e.GameTypeId).IsRequired();
-
+		entity.HasKey(e => e.Id).IsClustered();
+		entity.HasMany(e => e.GameSessions).WithOne(e => e.GameDefinition).HasForeignKey(e => e.GameDefinitionId);
 	}
 
+	private void OnModelCreating(EntityTypeBuilder<GameCell> entity)
+	{
+		ArgumentNullException.ThrowIfNull(entity, nameof(entity));
+		entity.ToTable(nameof(GameCell));
+		entity.Property(e => e.Id).ValueGeneratedOnAdd();
+		entity.HasKey(e => e.Id).IsClustered();
+		entity.HasOne(e => e.GamePlayer).WithMany().HasForeignKey(e => e.GamePlayerId);
+		entity.HasOne(e => e.GameSession).WithMany().HasForeignKey(e => e.GameSessionId);
+	}
+	
 	private void OnModelCreating(EntityTypeBuilder<GamePlayer> entity)
 	{
-		entity.ToTable(nameof(GamePlayers));
-		entity.HasIndex(e => e.Id).IsUnique();
+		ArgumentNullException.ThrowIfNull(entity, nameof(entity));
+		entity.ToTable(nameof(GamePlayer));
 		entity.Property(e => e.Id).ValueGeneratedOnAdd();
-	}
-
-	private void OnModelCreating(EntityTypeBuilder<GamePlayerType> entity)
-	{
-		entity.ToTable(nameof(GamePlayerTypes));
-		entity.HasIndex(e => e.Id).IsUnique();
-		entity.Property(e => e.Id).ValueGeneratedOnAdd();
-	}
-
-	private void OnModelCreating(EntityTypeBuilder<GameRule> entity)
-	{
-		entity.ToTable(nameof(GameRule));
-		entity.HasIndex(e => e.Id).IsUnique();
-		entity.Property(e => e.Id).ValueGeneratedOnAdd();
+		entity.HasKey(e => e.Id).IsClustered();
 	}
 
 	private void OnModelCreating(EntityTypeBuilder<GameSession> entity)
 	{
-		entity.ToTable(nameof(GameSessions));
-		entity.HasIndex(e => e.Id).IsUnique();
+		ArgumentNullException.ThrowIfNull(entity, nameof(entity));
+		entity.ToTable(nameof(GameSession));
 		entity.Property(e => e.Id).ValueGeneratedOnAdd();
+		entity.HasKey(e => e.Id).IsClustered();
+		entity.HasOne(e => e.GameDefinition).WithMany().HasForeignKey(e => e.GameDefinitionId);
+		entity.HasMany(e => e.GamePlayers).WithMany(e => e.GameSessions);
 	}
 
-	private void OnModelCreating(EntityTypeBuilder<GameSessionPlayer> entity)
+	private void OnModelCreating(EntityTypeBuilder<Workflow> entity)
 	{
-		entity.ToTable(nameof(GameSessionPlayers));
-		entity.HasIndex(e => e.Id).IsUnique();
-		entity.Property(e => e.Id).ValueGeneratedOnAdd();
+		ArgumentNullException.ThrowIfNull(entity, nameof(entity));
+		entity.ToTable(nameof(Workflow));
+		entity.HasKey(e => e.WorkflowName);
+		entity.Ignore(e => e.WorkflowsToInject);
 	}
 
-	private void OnModelCreating(EntityTypeBuilder<GameType> entity)
+	private void OnModelCreating(EntityTypeBuilder<Rule> entity)
 	{
-		entity.ToTable(nameof(GameTypes));
-		entity.HasIndex(e => e.Id).IsUnique();
-		entity.Property(e => e.Id).ValueGeneratedOnAdd();
-		entity.Property(e => e.Name).IsRequired();
-	}
+		ArgumentNullException.ThrowIfNull(entity, nameof(entity));
+		entity.ToTable(nameof(Rule));
+		entity.HasKey(e => e.RuleName);
+		entity.Ignore(e => e.WorkflowsToInject);
+		entity.HasOne<Rule>().WithMany(e => e.Rules).HasForeignKey(e => e.RuleName);
 
-	private void OnModelCreating(EntityTypeBuilder<GameWorkflow> entity)
-	{
-		entity.ToTable(nameof(GameWorkflow));
-		entity.HasIndex(e => e.Id).IsUnique();
-		entity.Property(e => e.Id).ValueGeneratedOnAdd();
+		entity
+			.Property(e => e.Properties)
+			.HasConversion(
+			value => JsonSerializer.Serialize(value, serializationOptions),
+			str => JsonSerializer.Deserialize<Dictionary<string, object>>(str, serializationOptions)!
+			)
+			.Metadata
+			.SetValueComparer(valueComparer);
+		entity
+			.Property(e => e.Actions)
+			.HasConversion(
+				value => JsonSerializer.Serialize(value, serializationOptions), 
+				str => JsonSerializer.Deserialize<RuleActions>(str, serializationOptions)!
+			);
 	}
 
 }
-

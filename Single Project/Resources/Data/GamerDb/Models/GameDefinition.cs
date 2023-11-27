@@ -4,12 +4,14 @@
 	public class GameDefinition
 	{
 
-		public int Id { get; set; }
+		private static int id;
+		public int Id { get; init; } = id++;
 		public string Name { get; set; } = string.Empty;
 		public string Description { get; set; } = string.Empty;
-		public int GameTypeId { get; set; }
+		public string GameType { get; set; } = string.Empty;
+		public int MaxNumberOfPlayers { get; set; }
+		public int MinNumberOfPlayers { get; set; }
 
 		public virtual ICollection<GameSession> GameSessions { get; } = new List<GameSession>();
 
 	}
-
