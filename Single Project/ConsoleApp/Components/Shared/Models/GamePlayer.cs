@@ -3,7 +3,7 @@ using Gamer.Framework;
 
 namespace Gamer.Components.Shared.Models;
 
-public sealed class Player : BusinessObject
+public sealed class GamePlayer : BusinessObject
 {
     public string Name { get; set; } = string.Empty;
 	public PlayerType PlayerType { get; set; }

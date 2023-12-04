@@ -8,45 +8,45 @@ namespace Gamer.Components.Accessors;
 public class PlayersAccess : ServiceObject<PlayersAccess>
 {
 
-	private readonly HashSet<Player> data = new();
+	private readonly HashSet<GamePlayer> data = new();
 
-	public Player? Get(int id)
+	public GamePlayer? Get(int id)
 	{
         return data.SingleOrDefault(s => s.Id == id);
 	}
 
-	public ICollection<Player> List()
+	public ICollection<GamePlayer> List()
     {
         return data.OrderBy(x => x.Name).ToList();
     }
 
-	public Player Create(string name, string token, PlayerType playerType)
+	public GamePlayer Create(string name, string token, PlayerType playerType)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(name, nameof(name));
         ArgumentException.ThrowIfNullOrWhiteSpace(token, nameof(token));
-		var player = PlayerFactory.Create(name, token, playerType);
+		var player = GamePlayerFactory.Create(name, token, playerType);
 		data.Add(player);
         return player;
     }
 
-    public bool Update(Player player)
+    public bool Update(GamePlayer gamePlayer)
 	{
-        ArgumentNullException.ThrowIfNull(player, nameof(player));
-        var existing = data.SingleOrDefault(x => x.Id == player.Id);
+        ArgumentNullException.ThrowIfNull(gamePlayer, nameof(gamePlayer));
+        var existing = data.SingleOrDefault(x => x.Id == gamePlayer.Id);
         if (existing is null)
         {
             return false;
         }
-		existing.Name = player.Name;
-		existing.PlayerType = player.PlayerType;
-		existing.Token = player.Token;
-		existing.GameSessions = player.GameSessions;
+		existing.Name = gamePlayer.Name;
+		existing.PlayerType = gamePlayer.PlayerType;
+		existing.Token = gamePlayer.Token;
+		existing.GameSessions = gamePlayer.GameSessions;
 		return true;
 	}
 
-	public bool Delete(Player player)
+	public bool Delete(GamePlayer gamePlayer)
 	{
-        var existing = data.SingleOrDefault(x => x.Id == player.Id);
+        var existing = data.SingleOrDefault(x => x.Id == gamePlayer.Id);
         if (existing is null)
         {
             return false;

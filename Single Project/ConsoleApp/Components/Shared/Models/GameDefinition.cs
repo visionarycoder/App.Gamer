@@ -4,10 +4,13 @@ namespace Gamer.Components.Shared.Models;
 
 public sealed class GameDefinition : BusinessObject
 {
-	public string Name { get; init; } = string.Empty;
-	public string Description { get; init; } = string.Empty;
+	public string Name { get; set; } = string.Empty;
+	public string Description { get; set; } = string.Empty;
 	public string TurnPrompt { get; init; } = string.Empty;
-	public int MaxNumberOfPlayers { get; init; }
-	public int MinNumberOfPlayers { get; init; }
-	public BoardDefinition BoardDefinition { get; init; } = null!;
+    public int NumberOfPlayers { get; init; } = 2;
+    public bool IsTurnBased { get; init; } = true;
+    public bool AllowOverwrite { get; init; } = true;
+    public BoardDefinition BoardDefinition { get; set; } = null!;
+
+
 }

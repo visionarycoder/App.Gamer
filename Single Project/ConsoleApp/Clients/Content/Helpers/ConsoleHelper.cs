@@ -18,17 +18,17 @@ internal static class ConsoleHelper
         return board.ToString();
     }
 
-    public static string PrintTurnPrompt(Player player, GameDefinition gameDefinition)
+    public static string PrintTurnPrompt(GamePlayer gamePlayer, GameDefinition gameDefinition)
     {
         var builder = new StringBuilder();
-        builder.AppendLine($"{player.Name}: {gameDefinition.TurnPrompt}");
+        builder.AppendLine($"{gamePlayer.Name}: {gameDefinition.TurnPrompt}");
         return builder.ToString();
     }
 
-    public static string PrintWinner(Player player)
+    public static string PrintWinner(GamePlayer gamePlayer)
     {
         var builder = new StringBuilder();
-        builder.AppendLine($"{player.Name} wins!");
+        builder.AppendLine($"{gamePlayer.Name} wins!");
         return builder.ToString();
     }
 

@@ -1,30 +1,21 @@
 ﻿using Gamer.Components.Shared.Enums;
 using Gamer.Components.Shared.Models;
+using Gamer.Framework.Factories;
 
 namespace Gamer.Components.Accessors.Helpers;
 
 internal static class GameSessionFactory
 {
 
-    private static int id;
-
-    public static GameSession Create(GameDefinition gameDefinition, ICollection<Player>? players = null)
+    public static GameSession Create(GameDefinition gameDefinition, ICollection<GamePlayer>? players = null)
     {
         
-        var playerList = players ?? new List<Player>();
-        playerList = playerList.Distinct().ToList();
+        var gameSession = BusinessObjectFactory.Create<GameSession>();
+        gameSession.Players = players!.Distinct().ToList();
+        gameSession.Cells = new List<GameCell>();
+        gameSession.GameDefinition = gameDefinition;
+        gameSession.GameStatus = GameStatus.Created;
 
-        var gameSession = new GameSession
-        {
-            Id = id++,
-            Players = playerList,
-            Cells = new List<GameCell>(),
-            Created = DateTime.Now,
-            Updated = DateTime.Now,
-            GameStatus = GameStatus.NotStarted,
-            GameDefinition = gameDefinition,
-        };
-        
         for (var rowIdx = 0; rowIdx < gameDefinition.BoardDefinition.RowCount; rowIdx++)
         {
             for (var columnIdx = 0; columnIdx < gameDefinition.BoardDefinition.ColumnCount; columnIdx++)
@@ -35,6 +26,6 @@ internal static class GameSessionFactory
         }
         return gameSession;
 
-    }
+    } 
 
 }

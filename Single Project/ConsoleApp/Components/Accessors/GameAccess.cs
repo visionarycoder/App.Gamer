@@ -41,7 +41,7 @@ public class GameAccess : ServiceObject<GameAccess>
         return gameDefinitions;
     }
 
-    public GameSession CreateGameSession(GameDefinition gameDefinition, ICollection<Player>? players)
+    public GameSession CreateGameSession(GameDefinition gameDefinition, ICollection<GamePlayer>? players)
     {
         ArgumentNullException.ThrowIfNull(gameDefinition, nameof(gameDefinition));
 
