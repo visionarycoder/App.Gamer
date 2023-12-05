@@ -1,4 +1,4 @@
-﻿namespace Gamer.Framework;
+﻿namespace Gamer.Framework.Base;
 
 public abstract class BusinessObject
 {

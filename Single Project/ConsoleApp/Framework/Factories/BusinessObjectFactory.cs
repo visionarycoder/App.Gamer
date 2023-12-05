@@ -1,4 +1,6 @@
-﻿namespace Gamer.Framework.Factories;
+﻿using Gamer.Framework.Base;
+
+namespace Gamer.Framework.Factories;
 
 public static class BusinessObjectFactory
 {
@@ -10,18 +12,6 @@ public static class BusinessObjectFactory
             Id = IdService.GetId()
         };
        return businessObject;
-    }
-
-}
-
-public static class IdService
-{
-    
-    private static int id;
-
-    public static int GetId()
-    {
-        return id++;
     }
 
 }

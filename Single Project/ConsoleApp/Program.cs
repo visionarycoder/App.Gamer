@@ -20,21 +20,13 @@ builder.Logging.AddSimpleConsole(options =>
     options.TimestampFormat = "hh:mm:ss ";
 });
 
-var options = new DbContextOptionsBuilder<GamerContext>()
-    .UseSqlite(builder.Configuration.GetConnectionString("Gamer"))
-    .Options;
-builder.Services.AddSingleton(options);
-
-builder.Services.AddDbContext<GamerContext>();
-
-builder.Services.AddTransient<BoardAccess>();
+builder.Services.AddTransient<GameAccess>();
 builder.Services.AddTransient<PlayersAccess>();
 builder.Services.AddTransient<GamePlayEngine>();
 builder.Services.AddTransient<ValidationEngine>();
-builder.Services.AddTransient<AdminManager>();
 builder.Services.AddTransient<ContentManager>();
 builder.Services.AddTransient<ContentClient>();
 
 var host = builder.Build();
 
-await host.RunAsync();
+var client = host.Services.GetRequiredService<ContentClient>();

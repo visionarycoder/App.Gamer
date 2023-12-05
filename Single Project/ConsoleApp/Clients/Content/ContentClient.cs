@@ -1,4 +1,4 @@
-﻿using Gamer.Framework;
+﻿using Gamer.Framework.Base;
 
 namespace Gamer.Clients.Content;
 

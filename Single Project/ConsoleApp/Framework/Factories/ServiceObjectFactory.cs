@@ -1,4 +1,6 @@
-﻿namespace Gamer.Framework.Factories;
+﻿using Gamer.Framework.Base;
+
+namespace Gamer.Framework.Factories;
 
 public static class ServiceObjectFactory
 {

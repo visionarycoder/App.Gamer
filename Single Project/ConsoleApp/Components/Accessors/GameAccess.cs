@@ -2,7 +2,7 @@
 
 using Gamer.Components.Accessors.Helpers;
 using Gamer.Components.Shared.Models;
-using Gamer.Framework;
+using Gamer.Framework.Base;
 
 namespace Gamer.Components.Accessors;
 
